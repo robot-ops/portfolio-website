@@ -1,0 +1,149 @@
+name: Dynamic Multi-Language CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master, dev ]
+  pull_request:
+    branches: [ main, master, dev ]
+
+jobs:
+  detect-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # ----------------------------------------------------
+      # 1. NODE.JS / JS / TS CHECKS
+      # ----------------------------------------------------
+      - name: Check for package.json
+        id: check_node
+        run: |
+          if [ -f "package.json" ]; then
+            echo "has_node=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_node=false" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
+
+      - name: Setup Node.js
+        if: steps.check_node.outputs.has_node == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Node dependencies
+        if: steps.check_node.outputs.has_node == 'true'
+        run: npm ci || npm install
+
+      - name: Run Node Linting
+        if: steps.check_node.outputs.has_node == 'true'
+        run: npm run lint --if-present
+
+      - name: Run Node Tests
+        if: steps.check_node.outputs.has_node == 'true'
+        run: npm test --if-present
+
+      # ----------------------------------------------------
+      # 2. PYTHON CHECKS
+      # ----------------------------------------------------
+      - name: Check for Python project files
+        id: check_python
+        run: |
+          if [ -f "requirements.txt" ] || [ -f "pyproject.toml" ] || [ -f "setup.py" ]; then
+            echo "has_python=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_python=false" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
+
+      - name: Setup Python
+        if: steps.check_python.outputs.has_python == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        if: steps.check_python.outputs.has_python == 'true'
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f "requirements.txt" ]; then pip install -r requirements.txt; fi
+          pip install flake8 pytest --upgrade --quiet
+
+      - name: Run Python Linting
+        if: steps.check_python.outputs.has_python == 'true'
+        run: |
+          # Stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings.
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Run Python Tests
+        if: steps.check_python.outputs.has_python == 'true'
+        run: |
+          if [ -d "tests" ] || [ -d "test" ]; then
+            pytest
+          else
+            echo "No test directory found, skipping pytest."
+          fi
+
+      # ----------------------------------------------------
+      # 3. RUST CHECKS
+      # ----------------------------------------------------
+      - name: Check for Cargo.toml
+        id: check_rust
+        run: |
+          if [ -f "Cargo.toml" ]; then
+            echo "has_rust=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_rust=false" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
+
+      - name: Setup Rust
+        if: steps.check_rust.outputs.has_rust == 'true'
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Run Rust Tests
+        if: steps.check_rust.outputs.has_rust == 'true'
+        run: cargo test
+
+      # ----------------------------------------------------
+      # 4. GO CHECKS
+      # ----------------------------------------------------
+      - name: Check for go.mod
+        id: check_go
+        run: |
+          if [ -f "go.mod" ]; then
+            echo "has_go=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_go=false" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
+
+      - name: Setup Go
+        if: steps.check_go.outputs.has_go == 'true'
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Run Go Tests
+        if: steps.check_go.outputs.has_go == 'true'
+        run: go test ./...
+
+      # ----------------------------------------------------
+      # 5. SANITY CHECK (FALLBACK)
+      # ----------------------------------------------------
+      - name: Basic Syntax & File Check
+        if: |
+          steps.check_node.outputs.has_node == 'false' &&
+          steps.check_python.outputs.has_python == 'false' &&
+          steps.check_rust.outputs.has_rust == 'false' &&
+          steps.check_go.outputs.has_go == 'false'
+        run: |
+          echo "No standard project configurations detected (Node.js, Python, Rust, Go)."
+          echo "Listing all files in repository:"
+          find . -maxdepth 3 -not -path '*/.*'

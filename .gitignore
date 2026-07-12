@@ -1,0 +1,127 @@
+# .gitignore template for multi-language projects
+
+# --- Language Specifics ---
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.venv
+venv/
+ENV/
+env/
+pythonenv/
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.cache
+htmlcov/
+
+# Node.js / JavaScript / TypeScript
+node_modules/
+/jspm_packages/
+.npm
+.eslintcache
+.stylelintcache
+.node_repl_history
+*~
+.yarn-integrity
+.next
+.nuxt
+out/
+dist/
+lib-cov/
+coverage/
+.nyc_output/
+*.lcov
+.cache/
+.parcel-cache/
+.docusaurus/
+.svelte-kit/
+
+# Rust
+/target
+Cargo.lock
+
+# Go
+bin/
+pkg/
+src/
+
+# C / C++
+*.o
+*.obj
+*.out
+*.app
+*.a
+*.lib
+*.so
+*.dylib
+
+# --- IDEs and Editors ---
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains (IntelliJ, WebStorm, PyCharm, etc.)
+.idea/
+
+# Editors
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Database & Logs ---
+*.log
+*.sqlite
+*.db
+vitals_log.db
+stopwatch_log.db
+
+# --- Secrets and Environment ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+credentials.json
+client_secret.json
+
+# --- OS-specific ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

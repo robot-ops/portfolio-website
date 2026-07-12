@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+@source ".";
+
+@theme {
+  --color-bg-primary: #0D1117;
+  --color-bg-secondary: #161B22;
+  --color-bamboo: #6B8E23;
+  --color-olive: #3E5C2B;
+  --color-sage: #A3B18A;
+  --color-gold: #D4AF37;
+  --color-text-primary: #E6EDF3;
+  --color-text-secondary: #9DA7B3;
+  --color-border-subtle: rgba(107, 142, 35, 0.15);
+
+  --font-heading: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Base */
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: #0D1117;
+  color: #E6EDF3;
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Lenis smooth scrolling */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Scrollbar — green tinted */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0D1117;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(107, 142, 35, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(107, 142, 35, 0.5);
+}
+
+/* Grid background — bamboo tinted */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(107, 142, 35, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(107, 142, 35, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: center top;
+}
+
+/* Mouse-follow glow — green */
+.mouse-glow {
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(107, 142, 35, 0.07),
+    rgba(62, 92, 43, 0.03) 30%,
+    transparent 60%
+  );
+}
+
+/* Gradient text: bamboo → gold */
+.text-gradient {
+  background: linear-gradient(135deg, #6B8E23 0%, #D4AF37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glassmorphism — bamboo palette */
+.glass-panel {
+  background: rgba(22, 27, 34, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(107, 142, 35, 0.12);
+}
+
+.glass-card {
+  background: rgba(22, 27, 34, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(107, 142, 35, 0.1);
+}
+
+/* Glow card — green tint hover */
+.glow-card {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.glow-card:hover {
+  transform: scale(1.02);
+  box-shadow:
+    0 0 30px rgba(107, 142, 35, 0.15),
+    0 0 60px rgba(107, 142, 35, 0.05);
+}
+
+/* Bamboo vertical divider — resembles segmented bamboo stalk */
+.bamboo-divider {
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(107, 142, 35, 0.3) 15%,
+    rgba(107, 142, 35, 0.3) 38%,
+    rgba(163, 177, 138, 0.25) 40%,
+    rgba(107, 142, 35, 0.3) 42%,
+    rgba(107, 142, 35, 0.3) 68%,
+    rgba(163, 177, 138, 0.25) 70%,
+    rgba(107, 142, 35, 0.3) 72%,
+    rgba(107, 142, 35, 0.3) 85%,
+    transparent
+  );
+  position: relative;
+}
+
+.bamboo-divider::before,
+.bamboo-divider::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 3px;
+  background: rgba(163, 177, 138, 0.3);
+  border-radius: 1px;
+}
+
+.bamboo-divider::before {
+  top: 40%;
+}
+
+.bamboo-divider::after {
+  top: 70%;
+}
+
+/* Floating animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 8s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* Pulse glow — green */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(107, 142, 35, 0.4); }
+  50% { box-shadow: 0 0 20px 4px rgba(107, 142, 35, 0.15); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 3s infinite;
+}
+
+/* Fade in */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* Sway animation for bamboo */
+@keyframes sway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(1.2deg); }
+}
+
+.bamboo-sway {
+  transform-origin: bottom center;
+  animation: sway 8s ease-in-out infinite;
+}
+
+/* Drift animation for ambient particles */
+@keyframes drift {
+  0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.4; }
+  100% { transform: translateY(-120px) translateX(60px) rotate(180deg); opacity: 0; }
+}
+
+.animate-drift {
+  animation: drift 25s linear infinite;
+}
+
+

@@ -1,52 +1,60 @@
-# Rian Hardianto - Interactive Developer Portfolio
+# PRINX | Aditya Bayu Aji — Software Systems Engineer Portfolio
 
-[![CI/CD Status](https://github.com/[Your-GitHub-Username]/portfolio-website/actions/workflows/ci.yml/badge.svg)](https://github.com/[Your-GitHub-Username]/portfolio-website/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](https://opensource.org/licenses/MIT)
-
-A professional, high-performance, and visually striking developer portfolio website built using **ReactJS (Vite)** and custom **Vanilla CSS**. This portfolio is designed to showcase my **3+ years of Laravel backend expertise** alongside my **ReactJS frontend skills** in a unified, interactive presentation.
+A premium, outcome-oriented software systems engineering portfolio website featuring a bamboo-inspired design system. This site communicates systems thinking and engineering maturity, showcasing complete software ecosystems across web, desktop, mobile, IoT, and infrastructure.
 
 ---
 
-## 🚀 Key Interactive Features (Live Previews)
-Instead of static screenshots, recruiters and clients can test full-stack features directly on the website via custom simulations:
-
-1. **SQL Query & Database Index Tuner Sandbox**:
-   - Simulates a raw SQL query executing on 10,000+ records.
-   - Compares unindexed query performance (184ms) against an optimized index-based query (4ms).
-   - Showcases the corresponding Laravel Eloquent code and migration files.
-2. **Laravel Livewire Kanban Task Board**:
-   - A reactive workspace demonstrating state updates without full-page reloads.
-   - Users can add tasks and move tasks across states in real-time.
-   - Showcases the Livewire blade component structure.
-3. **RESTful API Endpoint Simulator**:
-   - Simulates client-server requests for `GET /api/v1/projects` and `POST /api/v1/projects`.
-   - The `POST` endpoint dynamically accepts name and technology values, returning formatted `210 Created` responses.
-   - Displays the underlying Laravel Route definitions and ProjectController logic.
+## 🛠️ Brand Positioning & Mindset
+- **Systems Engineering:** Designs unified software loops—from physical sensors and HMI/PLC nodes over MQTT brokers to Python desktop clients, Laravel API gateways, and secured database servers.
+- **Outcome Selling:** Focuses on real-world business challenges, database integrity, error-handling boundaries, and measurable impacts over raw technology lists.
+- **Bamboo Analogy:** Inspired by the Javanese word *"Pring"* (bamboo), representing flexibility under load, reliability over time, simplicity, and long-term growability.
 
 ---
 
-## 🛠️ Tech Stack & Styling
-- **Framework**: ReactJS 18+ (Vite)
-- **Styling**: Vanilla CSS (Neon dark mode theme, glassmorphism cards, floating background blobs, and custom keyframe animations)
-- **Icons**: Optimized inline SVGs
-- **Deployment-ready**: Optimized for free hosting providers (e.g. Netlify, Vercel, GitHub Pages)
+## 🚀 Key Features & Visual Storytelling
+
+1. **Parallax Hero & Micro-Interactions**:
+   - Layered bamboo vector illustration responding to mouse movement.
+   - Spring-based magnetic CTA buttons and ambient drifting leaf particles.
+2. **Scroll Storyteller (`BambooStory.jsx`)**:
+   - A sidebar progress indicator that grows and changes states from *Seed* to *Sprout* to *Strong Bamboo Segments* as the visitor scrolls through the page.
+3. **Structured Case Studies & SVG Diagrams**:
+   - Features 3 detailed, confidential case studies:
+     1. **Motion Analysis Platform** (Healthcare Technology: Python Desktop App capturing USB camera feeds and subscribing to EMG sensors via MQTT)
+     2. **Industrial Pressure Monitoring Platform** (Industrial IoT: pneumatic line data routed via PLCs to HMI screens publishing over MQTT)
+     3. **Solar Tracker Monitoring System** (Android + IoT: ESP32 solar telemetry synced with Firebase Realtime Database)
+   - Open into detailed **10-Section Overlays** (Hero, Overview, Challenge, Solution, Architecture Flow SVG, Responsibilities, Technology Decisions, Impact, Gallery/Wireframes, and Lessons Learned).
+4. **Honest Timeline**:
+   - Clear division between professional engineering experience (Redesma Engineering) and educational milestones (Universitas Dian Nuswantoro and MSIB Independent Studies).
 
 ---
 
 ## 📁 Project Structure
+
 ```
-├── public/
-│   └── avatar.png           # AI-generated professional avatar
-├── src/
-│   ├── App.jsx              # Main page and simulated interactive sandboxes
-│   ├── index.css            # Custom CSS styles, themes, and animations
-│   └── main.jsx             # React DOM renderer
 ├── .github/
 │   └── workflows/
-│       └── ci.yml           # Dynamic GitHub Actions CI/CD Pipeline
-├── index.html               # Custom HTML entrypoint
-├── package.json             # Npm scripts and dependencies
-└── vite.config.js           # Vite development compiler config
+│       ├── ci.yml           # Build verification pipeline
+│       └── deploy.yml       # Netlify deployment workflow
+├── src/
+│   ├── components/
+│   │   ├── ui/              # Reusable UI tokens (Magnetic, Logo, SectionWrapper)
+│   │   ├── Hero.jsx         # Parallax entry point & CTAs
+│   │   ├── Experience.jsx   # Work & education chronology
+│   │   ├── About.jsx        # Mindset columns &Daily Scope
+│   │   ├── Skills.jsx       # Capabilities domain grid
+│   │   ├── Projects.jsx     # Card grid & mini-diagram previews
+│   │   ├── CaseStudyModal.jsx # 10-section case study overlay
+│   │   ├── Manifesto.jsx    # Short engineering philosophy
+│   │   ├── Process.jsx      # 5-step workflow timeline
+│   │   ├── Testimonial.jsx  # Monogram quote cards
+│   │   └── Contact.jsx      # Minimal CTA form & watermark
+│   ├── App.jsx              # Main mount and Lenis setup
+│   ├── index.css            # Tailwind CSS v4 variables & drift animations
+│   └── main.jsx             # React mount
+├── index.html               # Main index with customized SEO & JSON-LD
+├── package.json             # Scripts & dependencies
+└── vite.config.js           # Vite dev compiler configuration
 ```
 
 ---
@@ -54,14 +62,14 @@ Instead of static screenshots, recruiters and clients can test full-stack featur
 ## ⚙️ Installation & Local Setup
 
 ### Prerequisites
-- Node.js (v18 or v20 recommended)
+- Node.js (v20+ recommended)
 - npm or yarn
 
-### Local Run
+### Local Development
 
-1. **Clone the Repository**
+1. **Clone & Navigate**
    ```bash
-   git clone https://github.com/[Your-GitHub-Username]/portfolio-website.git
+   git clone https://github.com/robot-ops/portfolio-website.git
    cd portfolio-website
    ```
 
@@ -74,19 +82,10 @@ Instead of static screenshots, recruiters and clients can test full-stack featur
    ```bash
    npm run dev
    ```
-   Open `http://localhost:5173` in your browser.
+   Open `http://localhost:5173` (or the console output fallback port) in your browser.
 
-4. **Compile Production Build**
+4. **Verify Production Build**
    ```bash
    npm run build
    ```
-   The static build files will compile into the `dist/` directory, ready to be dropped into **Netlify** or other hosting solutions.
-
----
-
-## 🧪 CI/CD Pipeline
-This project contains a GitHub Actions workflow `.github/workflows/ci.yml`. On every push and pull request, the workflow:
-1. Checks out the repository.
-2. Configures Node.js.
-3. Installs dependencies.
-4. Audits packages and runs build verification to prevent code breaking in production.
+   Compiles static files into the `dist/` directory, optimized for Netlify static hosting.

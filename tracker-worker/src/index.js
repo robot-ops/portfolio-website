@@ -16,10 +16,10 @@ export default {
 
     try {
       const ip = request.headers.get("CF-Connecting-IP") || "Unknown IP";
-      const country = request.headers.get("cf-ipcountry") || "Unknown Country";
-      const city = request.headers.get("cf-ipcity") || "Unknown City";
-      const region = request.headers.get("cf-ipregion") || "Unknown Region";
-      const timezone = request.headers.get("cf-timezone") || "Unknown Timezone";
+      const country = request.cf?.country || request.headers.get("cf-ipcountry") || "Unknown Country";
+      const city = request.cf?.city || request.headers.get("cf-ipcity") || "Unknown City";
+      const region = request.cf?.region || request.headers.get("cf-ipregion") || "Unknown Region";
+      const timezone = request.cf?.timezone || request.headers.get("cf-timezone") || "Unknown Timezone";
       const userAgent = request.headers.get("user-agent") || "Unknown User Agent";
 
       let bodyData = {};

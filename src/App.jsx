@@ -62,6 +62,26 @@ export default function App() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  // Visitor Tracking Session Logger
+  useEffect(() => {
+    if (sessionStorage.getItem('portfolio_visited')) return;
+    const trackerUrl = import.meta.env.VITE_TRACKER_WORKER_URL;
+    if (!trackerUrl) return;
+
+    fetch(trackerUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ referrer: document.referrer || 'Direct' })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          sessionStorage.setItem('portfolio_visited', 'true');
+        }
+      })
+      .catch(err => console.error('Tracker error:', err));
+  }, []);
+
   return (
     <div className="min-h-screen bg-bg-primary text-text-primary relative mouse-glow selection:bg-bamboo/30 selection:text-white overflow-hidden">
       {/* Ambient Visual Elements */}

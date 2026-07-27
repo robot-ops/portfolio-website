@@ -118,6 +118,7 @@ stopwatch_log.db
 *.key
 credentials.json
 client_secret.json
+.wrangler/
 
 # --- OS-specific ---
 .DS_Store

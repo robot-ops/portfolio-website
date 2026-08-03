@@ -149,7 +149,7 @@ export default function App() {
     setBotDetected(initialCheck);
 
     if (sessionStorage.getItem('portfolio_visited')) return;
-    const trackerUrl = import.meta.env.VITE_TRACKER_WORKER_URL;
+    const trackerUrl = import.meta.env.VITE_TRACKER_WORKER_URL || 'https://portfolio-tracker.personal-mailku.workers.dev';
     if (!trackerUrl) return;
 
     let hasTracked = false;

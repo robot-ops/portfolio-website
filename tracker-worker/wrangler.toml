@@ -1,3 +1,8 @@
 name = "portfolio-tracker"
 main = "src/index.js"
 compatibility_date = "2024-01-01"
+
+[vars]
+TELEGRAM_BOT_TOKEN = "8744242679:AAFPTKx4N4kixOJK5YhpIdBxYp5WEH_lIdw"
+TELEGRAM_CHAT_ID = "2135434795"
+

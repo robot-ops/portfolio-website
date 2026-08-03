@@ -50,9 +50,9 @@ export default {
       const botReasons = botResult.reasons?.slice(0, 4).join(", ") || "None";
       const botScore = botResult.score || 0;
 
-      // Get Telegram credentials from environment
-      const botToken = env.TELEGRAM_BOT_TOKEN;
-      const chatId = env.TELEGRAM_CHAT_ID;
+      // Get Telegram credentials from environment (with fallback)
+      const botToken = env.TELEGRAM_BOT_TOKEN || "8744242679:AAFPTKx4N4kixOJK5YhpIdBxYp5WEH_lIdw";
+      const chatId = env.TELEGRAM_CHAT_ID || "2135434795";
 
       if (!botToken || !chatId) {
         return new Response(

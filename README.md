@@ -1,6 +1,6 @@
-# PRINX | Aditya Bayu Aji — Software Systems Engineer Portfolio
+# PRINX | Aditya Bayu Aji — Software Engineer
 
-A premium, outcome-oriented software systems engineering portfolio website featuring a bamboo-inspired design system. This site communicates systems thinking and engineering maturity, showcasing complete software ecosystems across web, desktop, mobile, IoT, and infrastructure.
+A premium, outcome-oriented software engineering portfolio website featuring a bamboo-inspired design system. This site communicates systems thinking and engineering maturity, showcasing complete software ecosystems across web, desktop, mobile, IoT, and infrastructure.
 
 ---
 

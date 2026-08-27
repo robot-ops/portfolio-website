@@ -34,27 +34,33 @@ A premium, outcome-oriented software systems engineering portfolio website featu
 ```
 ├── .github/
 │   └── workflows/
-│       ├── ci.yml           # Build verification pipeline
-│       └── deploy.yml       # Netlify deployment workflow
+│       ├── ci.yml           # Multi-language build verification pipeline
+│       └── deploy.yml       # VPS SSH automated deployment workflow
 ├── src/
 │   ├── components/
-│   │   ├── ui/              # Reusable UI tokens (Magnetic, Logo, SectionWrapper)
-│   │   ├── Hero.jsx         # Parallax entry point & CTAs
-│   │   ├── Experience.jsx   # Work & education chronology
-│   │   ├── About.jsx        # Mindset columns &Daily Scope
-│   │   ├── Skills.jsx       # Capabilities domain grid
-│   │   ├── Projects.jsx     # Card grid & mini-diagram previews
+│   │   ├── ui/              # Reusable UI tokens (Button, Logo, Magnetic, SectionWrapper)
+│   │   ├── About.jsx        # Mindset columns & Daily Scope
+│   │   ├── BambooStory.jsx  # Scroll growth progress indicator
 │   │   ├── CaseStudyModal.jsx # 10-section case study overlay
+│   │   ├── Contact.jsx      # Minimal CTA form & watermark
+│   │   ├── Experience.jsx   # Work & education chronology
+│   │   ├── Footer.jsx       # Branded footer & links
+│   │   ├── Hero.jsx         # Parallax entry point & CTAs
 │   │   ├── Manifesto.jsx    # Short engineering philosophy
+│   │   ├── Navbar.jsx       # Fixed header navigation
 │   │   ├── Process.jsx      # 5-step workflow timeline
-│   │   ├── Testimonial.jsx  # Monogram quote cards
-│   │   └── Contact.jsx      # Minimal CTA form & watermark
-│   ├── App.jsx              # Main mount and Lenis setup
+│   │   ├── Projects.jsx     # Card grid & mini-diagram previews
+│   │   └── Skills.jsx       # Capabilities domain grid
+│   ├── App.jsx              # Main mount, Lenis smooth scroll & ErrorBoundary
 │   ├── index.css            # Tailwind CSS v4 variables & drift animations
-│   └── main.jsx             # React mount
+│   └── main.jsx             # React DOM mount
+├── tracker-worker/          # Cloudflare Worker for visitor telemetry & bot detection
+│   ├── src/
+│   │   └── index.js         # Bot analysis engine & Telegram notification dispatcher
+│   └── wrangler.toml        # Cloudflare Worker configuration
 ├── index.html               # Main index with customized SEO & JSON-LD
 ├── package.json             # Scripts & dependencies
-└── vite.config.js           # Vite dev compiler configuration
+└── vite.config.js           # Vite build compiler configuration
 ```
 
 ---
@@ -84,8 +90,17 @@ A premium, outcome-oriented software systems engineering portfolio website featu
    ```
    Open `http://localhost:5173` (or the console output fallback port) in your browser.
 
-4. **Verify Production Build**
+4. **Verify Production Build & Linting**
    ```bash
+   npm run lint
    npm run build
    ```
-   Compiles static files into the `dist/` directory, optimized for Netlify static hosting.
+
+---
+
+## 🌐 Production & CI/CD Deployment
+
+- **Live URL:** [https://prinx.web.id](https://prinx.web.id)
+- **Hosting:** Ubuntu VPS with Nginx web server & SSL Let's Encrypt.
+- **Automated CI/CD:** Every push to `main` triggers GitHub Actions (`deploy.yml`) which securely connects via SSH, pulls the latest code, and builds the production bundle into `/var/www/prinx-portfolio/dist`.
+

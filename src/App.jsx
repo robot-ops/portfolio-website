@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Component } from 'react';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -11,6 +11,28 @@ import Process from './components/Process';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import BambooStory from './components/BambooStory';
+
+// Error Boundary — prevents blank-screen crash
+class ErrorBoundary extends Component {
+  state = { hasError: false };
+  static getDerivedStateFromError() { return { hasError: true }; }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-bg-primary flex items-center justify-center text-text-primary">
+          <div className="text-center space-y-4 p-8">
+            <h1 className="text-2xl font-heading font-bold">Something went wrong</h1>
+            <p className="text-text-secondary text-sm">Please refresh the page to continue.</p>
+            <button onClick={() => window.location.reload()} className="px-4 py-2 bg-bamboo/80 text-white rounded-lg hover:bg-bamboo transition-colors text-sm">
+              Refresh
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 // Ambient particle component
 function FloatingParticles() {
@@ -214,12 +236,7 @@ export default function App() {
         }),
       })
         .then((res) => res.json())
-        .then((data) => {
-          if (data.success && data.bot) {
-            console.log('🔍 Bot Detection (server):', data.bot);
-          }
-        })
-        .catch((err) => console.error('Tracker error:', err));
+        .catch(() => {});
     };
 
     // Give 2.5 seconds observation window for human interactions before sending tracking log
@@ -234,6 +251,7 @@ export default function App() {
   }, []);
 
   return (
+    <ErrorBoundary>
     <div className="min-h-screen bg-bg-primary text-text-primary relative mouse-glow selection:bg-bamboo/30 selection:text-white overflow-hidden">
       {/* Ambient Visual Elements */}
       <div className="absolute inset-0 grid-bg opacity-15 z-0 pointer-events-none" />
@@ -276,5 +294,6 @@ export default function App() {
       {/* Branded Footer */}
       <Footer />
     </div>
+    </ErrorBoundary>
   );
 }

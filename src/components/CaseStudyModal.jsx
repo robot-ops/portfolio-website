@@ -140,7 +140,7 @@ function DetailedArchitectureFlow({ id }) {
 }
 
 // Confidential UI Wireframe placeholders
-function ConfidentialVisual({ id }) {
+function ConfidentialVisual({ id: _id }) {
   return (
     <div className="border border-dashed border-border-subtle rounded-xl p-8 bg-bg-secondary/40 flex flex-col items-center justify-center text-center space-y-3">
       <EyeOff className="w-8 h-8 text-gold/60" />

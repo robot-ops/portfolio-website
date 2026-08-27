@@ -1,14 +1,15 @@
 export default {
-  async fetch(request, env, ctx) {
+  async fetch(request, env, _ctx) {
+    const ALLOWED_ORIGIN = "https://prinx.web.id";
+    const corsHeaders = {
+      "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    };
+
     // Handle CORS preflight
     if (request.method === "OPTIONS") {
-      return new Response(null, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "POST, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type",
-        },
-      });
+      return new Response(null, { headers: corsHeaders });
     }
 
     if (request.method !== "POST") {
@@ -28,7 +29,7 @@ export default {
       let bodyData = {};
       try {
         bodyData = await request.json();
-      } catch (e) {}
+      } catch {}
       const referrer = bodyData.referrer || "Direct";
       const clientBot = bodyData.clientBot || null; // optional frontend bot info
 
@@ -51,8 +52,8 @@ export default {
       const botScore = botResult.score || 0;
 
       // Get Telegram credentials from environment (with fallback)
-      const botToken = env.TELEGRAM_BOT_TOKEN || "8744242679:AAFPTKx4N4kixOJK5YhpIdBxYp5WEH_lIdw";
-      const chatId = env.TELEGRAM_CHAT_ID || "2135434795";
+      const botToken = env.TELEGRAM_BOT_TOKEN;
+      const chatId = env.TELEGRAM_CHAT_ID;
 
       if (!botToken || !chatId) {
         return new Response(
@@ -116,7 +117,7 @@ ${clientBot ? `• Client Check: ${clientBot.classification || (clientBot.detect
         {
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
+            ...corsHeaders,
           },
         }
       );
@@ -125,7 +126,7 @@ ${clientBot ? `• Client Check: ${clientBot.classification || (clientBot.detect
         status: 500,
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+          ...corsHeaders,
         },
       });
     }
@@ -260,7 +261,7 @@ async function detectBot(request, clientBot = null) {
   };
 
   let missingCount = 0;
-  for (const [key, { header, weight }] of Object.entries(headerChecks)) {
+  for (const [_key, { header, weight }] of Object.entries(headerChecks)) {
     if (!header) {
       missingCount++;
       score += weight;

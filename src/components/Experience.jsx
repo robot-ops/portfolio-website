@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Calendar, Briefcase, GraduationCap, BookOpen, MapPin } from 'lucide-react';
+import { Calendar, Briefcase, GraduationCap, MapPin } from 'lucide-react';
 import SectionWrapper from './ui/SectionWrapper';
 
 const fadeUp = (delay = 0) => ({

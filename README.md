@@ -54,10 +54,6 @@ A premium, outcome-oriented software engineering portfolio website featuring a b
 │   ├── App.jsx              # Main mount, Lenis smooth scroll & ErrorBoundary
 │   ├── index.css            # Tailwind CSS v4 variables & drift animations
 │   └── main.jsx             # React DOM mount
-├── tracker-worker/          # Cloudflare Worker for visitor telemetry & bot detection
-│   ├── src/
-│   │   └── index.js         # Bot analysis engine & Telegram notification dispatcher
-│   └── wrangler.toml        # Cloudflare Worker configuration
 ├── index.html               # Main index with customized SEO & JSON-LD
 ├── package.json             # Scripts & dependencies
 └── vite.config.js           # Vite build compiler configuration
@@ -103,4 +99,3 @@ A premium, outcome-oriented software engineering portfolio website featuring a b
 - **Live URL:** [https://prinx.web.id](https://prinx.web.id)
 - **Hosting:** Ubuntu VPS with Nginx web server & SSL Let's Encrypt.
 - **Automated CI/CD:** Every push to `main` triggers GitHub Actions (`deploy.yml`) which securely connects via SSH, pulls the latest code, and builds the production bundle into `/var/www/prinx-portfolio/dist`.
-
